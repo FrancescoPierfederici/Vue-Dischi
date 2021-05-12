@@ -1,0 +1,35 @@
+*{
+    box-sizing: border-box;
+    margin:0;
+    padding:0;
+}
+.my-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 20px 20px ;
+    background-color:bisque;
+    
+    
+}
+.card{
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+h1{
+    
+    padding: 20px  20px;
+    background-image: linear-gradient(to right, rgba(0, 255, 242, 0.808) , yellow);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+.card-img-top {
+    height:250px
+}
+.fntsize-light{
+    padding-left: 30px;
+  
+    font-size: 12px;
+}
+body{
+    line-height:0.5;
+}

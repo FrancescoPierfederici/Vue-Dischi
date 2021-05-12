@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue dischi</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- 
+            Utilizzando vue, stampiamo a schermo una card per ogni album.
+            - Se array è vuoto?
+                - Sarà vuoto all'avvio di vue finchè la chiamata ajax non sarà completata
+                - Dobbiamo in qualche modo informare l'utente che i dati sono in caricamento
+                    - Potremmo mostrare un messaggio di testo? O un loading spinner?
+                    - Tramite un v-if, Se array è vuoto -> mostro testo attendi, altrimenti mostro 
+                        lista album
+            - Album -> in un array di vue?
+            - v-for  
+                - dovrò scrivere del html per ogni album
+                    - nell'html, per ogni album dovremo mostrare la copertina, 
+                        poi il titolo album, anno e se vogliamo l'artista
+         -->
+    <div id="app">
+        <h1>My Vue Albums
+            <!-- 
+                Creare una select con tutti i generi dei dischi. 
+                In base a cosa scegliamo nella select, vedremo i corrispondenti cd. 
+                - dobbiamo creare le option della select
+                - prima recuperare i generi dei dischi disponibili
+                    - usando il forEach creiamo un nuovo array con solo la lista dei generi
+                - Questi generi li salvo in un array
+                    - in html li stamp con un v-for
+                        - Ogni genere quindi sarà una option all'interno della select
+                - Al cambio della select, filtriamo i dischi in base al genere scelto
+                    - sulla select posso usare l'evento change per capire il nuovo valore
+                    - All'interno della funzione, eseguo il filter sui dati e li salvo 
+                        in una nuova variabile
+            -->
+            <span class="fntsize-light">
+                <select v-model="genre" name="Genre" id="" @change="onSelectChange">
+                    <option value="Rock">Rock</option>
+                    <option value="Pop">Pop</option>
+                    <option value="Jazz">Jazz</option>
+                    <option value="Metal">Metal</option>
+                </select>
+            </span>
+
+        </h1>
+
+        <div class="my-container">
+
+            <!-- il v-for qua serve a ripeter la struttura ma anche per estrapolare nuovi data dall'api grazie ad  "album" -->
+            <div v-for="album in albumList" class="card" style="width: 18rem;">
+                <!-- copertina -->
+                <img class="card-img-top " :src="album.poster" alt="Card image cap">
+                <div class="card-body">
+                    <!-- Titolo album -->
+                    <h4 class="card-title">{{album.title}} </h4>
+                        <!-- Nome Artista -->
+                        <p class="card-text"> {{album.author}} </p>
+                        <!-- Genere album -->
+                        <p class="card-text">{{album.genre}} </p>
+                        <!-- Anno album -->
+                        <p class="card-text">{{album.year}} </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="myscript.js"></script>
+</body>
+
+</html>
