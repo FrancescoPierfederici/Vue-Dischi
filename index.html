@@ -45,11 +45,10 @@
                         in una nuova variabile
             -->
             <span class="fntsize-light">
-                <select v-model="genre" name="Genre" id="" @change="onSelectChange">
-                    <option value="Rock">Rock</option>
-                    <option value="Pop">Pop</option>
-                    <option value="Jazz">Jazz</option>
-                    <option value="Metal">Metal</option>
+                <select v-model="genreToFilter"  @change="onSelectChange">
+                    <option value="">Tutti i generi</option>
+                    <option v-for="genre in genresList" :value="genre">{{genre}}   </option>
+                    
                 </select>
             </span>
 
@@ -58,7 +57,7 @@
         <div class="my-container">
 
             <!-- il v-for qua serve a ripeter la struttura ma anche per estrapolare nuovi data dall'api grazie ad  "album" -->
-            <div v-for="album in albumList" class="card" style="width: 18rem;">
+            <div v-for="album in filteredData" class="card" style="width: 18rem;">
                 <!-- copertina -->
                 <img class="card-img-top " :src="album.poster" alt="Card image cap">
                 <div class="card-body">

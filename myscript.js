@@ -34,24 +34,33 @@ new Vue({
     data: {
         albumList: [],
         filteredData: [],
-        genre: null
+        genresList: [],
+        genreToFilter: "",
 
     },
     methods: {
-        getGeneresList() {
-            const finalList = []
 
-            albumsList.forEach((element) => {
-                if (!finalList.includes(element.genre)) {
-                    finalList.push(element.genre)
-                }
+
+        onSelectChange() {
+            if (this.genreToFilter === "") {
+                this.filteredData = this.albumList
+                return
+            }
+            const newFilteredData = this.albumList.filter((album) => {
+                return album.genre === this.genreToFilter
             })
-        },
-        onSelectChange(event) {
-            const select = event.currentTarget
+            this.filteredData = newFilteredData
         },
 
-        filteredAlbums() {
+        createGenreOptions() {
+
+            this.albumList.forEach((album) => {
+                if (!this.genresList.includes(album.genre)) {
+                    this.genresList.push(album.genre);
+                }
+
+            })
+
 
         }
     },
@@ -61,7 +70,7 @@ new Vue({
 
         axios.get("https://flynn.boolean.careers/exercises/api/array/music")
             .then((resp) => {
-                this.albumList = resp.data.response;
+                const incomingAlbumList = resp.data.response;
 
                 //ARRAY DI OGGETTI CON LE SEGUENTI CHIAVI
                 // Poster
@@ -69,9 +78,9 @@ new Vue({
                 // Author
                 // Genre
                 // Year
-
-
-
+                this.albumList.push(...incomingAlbumList)
+                this.filteredData.push(...incomingAlbumList)
+                this.createGenreOptions()
 
 
             })
@@ -83,7 +92,7 @@ new Vue({
            prima ancora di salvarli nella variabile di vue, 
            posso eseguire il sort in modo da salvare poi i dati già ordinati
        */
-        
+
 
 
     }
